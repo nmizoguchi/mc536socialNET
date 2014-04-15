@@ -9,5 +9,6 @@ Acessar http://sql2.lab.ic.unicamp.br/~ra103659/mc536/mc536socialNET/view/, tere
 
 * Listar usuários
 	Aqui você pode ver quais os usuários estão cadastrados e seus dados, e também pode editar as informações de qualquer usuário caso deseje.
+	Também é possível remover qualquer usuário, bastando clicar na opção "remover" que fica à esquerda da tela.
 
 
