@@ -31,10 +31,7 @@
 				echo "<td>".$row['login']."</td>";
 				echo "<td>".$row['name']."</td>";
 				echo "<td>".$row['hometown']."</td>";
-				echo "<td>
-					<a href='./person_update.php?id=".$row['id']."'>Editar</a>
-					<a href='./person_delete.php?id=".$row['id']."'>Excluir</a>
-				</td>";
+				echo "<td><a href='./person_update.php?id=".$row['id']."'>Editar</a></td>";
 				echo "</tr>";
 			}
 		?>

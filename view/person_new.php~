@@ -1,18 +1,8 @@
 <?php
-	$err = null;
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
+	function httpPost() {
 	
-	$id = $_GET['id'];
-	if($id==null) {
-		echo "<h1>Opera&ccedil;&atilde;o Inv&aacute;lida!</h1>";
-		die();
-	}
-	
-	$con = mysql_connect("localhost:3306","mc536user07", "euzaraef") or die(mysql_error());
-	$selected = mysql_select_db("mc536db07", $con);
-
-	function httpPost($id, $con) {
+		$con = mysql_connect("localhost:3306","mc536user07", "euzaraef") or die(mysql_error());
+		$selected = mysql_select_db("mc536db07", $con);
 		// CHECK DATA FIRST
 		for($i = 0; $i < 10; $i++) {
 			$knows[$i] = $_POST["knows$i"];
@@ -29,21 +19,27 @@
 			}
 		}
 		
+		$login = $_POST['login'];
 		$name = $_POST['name'];
 		$hometown = $_POST['hometown'];
 		
+		if($login == ""){
+			echo "Login &eacute; obrigat&oacute;rio.";
+			return false;
+		}
+		
 		if($name == ""){
-			echo "Nome &eacute; necess&aacute;rio.";
+			echo "Nome &eacute; obrigat&oacute;rio.";
 			return false;
 		}
 		
 		if($hometown == ""){
-			echo "Hometown &eacute; necess&aacute;rio.";
+			echo "Hometown &eacute; obrigat&oacute;rio.";
 			return false;
 		}
 		
 		// NOW INSERT CORRECTLY
-		$sql = "UPDATE Person SET name='".$name."', hometown='".$hometown."' WHERE id=".$id;
+		$sql = "INSERT INTO Person (login, name, hometown) VALUES('".$login."','".$name."', '".$hometown."')";
 		$result = mysql_query($sql,$con);
 		
 		for($i = 0; $i < 10; $i++) {
@@ -77,45 +73,30 @@
 	}
 	
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(httpPost($id, $con)) {
-			echo "USUARIO ATUALIZADO COM SUCESSO!<br><a href='./person_list.php'>Voltar</a>";
+		if(httpPost()) {
+			echo "USUARIO INSERIDO COM SUCESSO!<br><a href='./index.php'>Voltar</a>";
 			exit();
 		}
 	}
-	
-   $sql = "SELECT * FROM Person WHERE id=$id";
-   $result = mysql_query($sql,$con);
-
-   $row = mysql_fetch_array($result);
-   $login = $row['login'];
-   $name = $row['name'];
-   $hometown = $row['hometown'];
 ?>
 <html>
 	<head>
-		<title> MC536 SocialNET - Listagem de usuarios</title>
+		<title> MC536 SocialNET - Inserir novo usuario</title>
 	</head>
 	<body>
-		<?php if($err)
-			echo $err
-		?>
-		<h1>Editar Usu&aacute;rio</h1>
-		<form name="input" action="person_update.php?id=<?php echo $id ?>" method="post">
+		<h1>Inserir Usu&aacute;rio</h1>
+		<form name="input" action="person_new.php method="post">
 		<table cellpadding="6">
-		  <tr>
-		    <td>Id</td>
-		    <td><?php echo $id; ?></td>
-		  </tr>
 		  <td>Login</td>
-		    <td><?php echo $login; ?></td>
+		    <td><input type="text" name="login"></td>
 		  </tr>
 		<tr>
 		<td>Name:</td>
-		<td><input type="text" name="name" value="<?php echo $name ?>"></td>
+		<td><input type="text" name="name"></td>
 		</tr>
 		<tr>
 		<td>Hometown:</td>
-		<td><input type="text" name="hometown" value="<?php echo $hometown ?>"></td>
+		<td><input type="text" name="hometown"></td>
 		</tr>
 		</table>
 		<h2>Novos Conhecidos</h2>

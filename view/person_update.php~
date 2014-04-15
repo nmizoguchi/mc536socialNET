@@ -78,7 +78,7 @@
 	
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(httpPost($id, $con)) {
-			echo "USUARIO ATUALIZADO COM SUCESSO!<br><a href='./person_list.php'>Voltar</a>";
+			echo " SUCESSO";
 			exit();
 		}
 	}
