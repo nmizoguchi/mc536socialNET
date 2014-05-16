@@ -1,0 +1,5 @@
+xquery version "3.0";
+let $personsXML := "https://dl.dropboxusercontent.com/u/66978342/person.xml"
+let $doc := doc($personsXML)
+for $i in($doc/Persons/Person)
+    return concat("INSERT INTO Person (login,name,hometown) VALUES ('", replace(data($i/@uri), "http://www.ic.unicamp.br/MC536/2014/1/", ""), "','", data($i/@name), "','",data($i/@hometown), "');&#10;")

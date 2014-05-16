@@ -1,0 +1,5 @@
+xquery version "3.0";
+let $knowsXML := "https://dl.dropboxusercontent.com/u/66978342/knows.xml"
+let $doc := doc($knowsXML)
+for $i in($doc/AllKnows/Knows)
+return concat("INSERT INTO Knows (person_id,colleague_id) VALUES ((SELECT id FROM Person WHERE login='", replace(data($i/@person), "http://www.ic.unicamp.br/MC536/2014/1/", ""), "'),(SELECT id FROM Person WHERE login='", replace(data($i/@colleague), "http://www.ic.unicamp.br/MC536/2014/1/", ""), "'));&#10;")

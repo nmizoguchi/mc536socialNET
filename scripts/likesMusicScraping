@@ -1,0 +1,5 @@
+xquery version "3.0";
+let $likesMusicXML := "https://dl.dropboxusercontent.com/u/66978342/likes.xml"
+let $doc := doc($likesMusicXML)
+for $i in($doc/AllLikesMusic/LikesMusic)
+return concat("INSERT INTO MusicalArtist (wiki_address) VALUES (&#34;", data($i/@colleague),"&#34;); INSERT INTO LikesMusic (person_id,artist_id) VALUES ((SELECT id FROM Person WHERE login=&#34;", replace(data($i/@person), "http://www.ic.unicamp.br/MC536/2014/1/", ""), "&#34;),(SELECT id FROM MusicalArtist WHERE wiki_address=&#34;", replace(data($i/@colleague), "http://www.ic.unicamp.br/MC536/2014/1/", ""), "&#34; GROUP BY wiki_address));&#10;")
