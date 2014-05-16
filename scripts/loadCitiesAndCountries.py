@@ -14,7 +14,7 @@ class MusicalArtist:
 		return re.sub(r"http://dbpedia.org/resource/","http://en.wikipedia.org/wiki/", self.DBpedia)
 
 g=rdflib.Graph()
-g.parse("missingArtists.txt", format="turtle")
+g.parse("artists.txt", format="turtle")
 
 print "Finished loading. Start processing..."
 
