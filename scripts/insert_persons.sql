@@ -48,3 +48,4 @@ INSERT INTO Person (login,name,hometown) VALUES ('andresantanche','andre santanc
 INSERT INTO Person (login,name,hometown) VALUES ('luizgomes','Luiz Celso Gomes Jr','');
 INSERT INTO Person (login,name,hometown) VALUES ('lucaslima','Lucas Domingues Lima','Campinas');
 INSERT INTO Person (login,name,hometown) VALUES ('viniciussantos','Vinicius Pereira dos Santos','Campinas');
+INSERT INTO Person (login,name,hometown) VALUES ('diegosanches', 'Diego Sanches', 'Campinas');
