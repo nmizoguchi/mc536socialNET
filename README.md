@@ -20,8 +20,8 @@ Inserir os arquivos .sql localizados na pasta Scripts em seu banco de dados MySQ
 - insert_likes.sql
 - updateScrapedData.sql	// Contém as queries para complementar o BD, conseguidos atraves dos scripts
 			// loadCitiesAndCountries.py e loadGenre.py
--ArtistsNoDuplicates.sql // Contém as queries para usar os artistas sem
-duplicatas
+- artistsNoDuplicates.sql // Contém os dados do banco para usar os artistas sem duplicatas
+- updateDuplicatedReferences.sql // Atualiza as referências dos artistas que estavam duplicados
 
 INFORMAÇÕES SOBRE OS SCRIPTS DE EXTRAÇÃO DE DADOS:
 
