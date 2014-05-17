@@ -22,7 +22,6 @@ artists = dict()
 for row in qres:
 	### LOAD GENRE
 	g2 = rdflib.Graph()
-	print str(row[1])
 	g2.load(str(row[1]))
 
 	# Find triples that indicates hometown

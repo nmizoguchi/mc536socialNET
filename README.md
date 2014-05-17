@@ -23,6 +23,10 @@ Inserir os arquivos .sql localizados na pasta Scripts em seu banco de dados MySQ
 
 INFORMAÇÕES SOBRE OS SCRIPTS DE EXTRAÇÃO DE DADOS:
 
+Os dados dos artistas foram majoritariamente baixados da dbpedia.org utilizando como auxílio a biblioteca RDFlib.
+Utilizou-se o endereço da wikipedia para localizar a "resource" de cada artista na DBpedia, extraindo entao todas
+as informações possíveis de cada artista.
+
 * loadArtistsGraphFromInsertLikes.py
 	Carrega os RDFs de todas as resources da dbpedia que fazem referencia aos Artistas no banco,
 	salvando no arquivo artists.txt em formato turtle.
