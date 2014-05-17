@@ -27,6 +27,14 @@ Os dados dos artistas foram majoritariamente baixados da dbpedia.org utilizando 
 Utilizou-se o endereço da wikipedia para localizar a "resource" de cada artista na DBpedia, extraindo entao todas
 as informações possíveis de cada artista.
 
+A estratégia de extração pela DBpedia segue da seguinte forma:
+- Da página resource do artista, é possível tirar informações diretas, como nome (foaf:name) e ano de criação.
+- Carregar RDFs de outras informações, como cidade natal (dbpedia-owl:hometown), e de lá extrair também o país da cidade
+	(caso seja uma cidade).
+- Carregar RDFs do gênero musical (dbpedia-owl:genre), pegando as informações e criando as queries.
+
+Vale lembrar que a busca das informações no grafo foi obtida através de queries SPARQL, facilitando a extração.
+
 * loadArtistsGraphFromInsertLikes.py
 	Carrega os RDFs de todas as resources da dbpedia que fazem referencia aos Artistas no banco,
 	salvando no arquivo artists.txt em formato turtle.
