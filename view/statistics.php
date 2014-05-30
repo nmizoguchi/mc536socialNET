@@ -60,7 +60,7 @@
     }
     
     $people_vs_artists_points = "[";
-    for($j = 0; $j < $max; j++)
+    for($j = 0; $j < $max; $j++)
         $people_vs_artists_points = $people_vs_artists_points."[".$j.",".$people_likes_map[$j]."]";
     
     $people_vs_artists_points = $people_vs_artists_points."]";
