@@ -18,17 +18,17 @@
     // TOP 10 MOST POPULAR
     $sql_top10_most_popular = "SELECT MusicalArtist.artistic_name, LikesMusic.artist_id, count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes desc limit 10;";
 
-// POPULARITY ASCENDING
-    $pupular_asc = "SELECT count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes asc;";
-
     // TOP 10 WITH HIGHER STDDEV
     $sql_top10_higher_stddev = "SELECT LikesMusic.artist_id, MusicalArtist.artistic_name, stddev(LikesMusic.rating) as Deviation from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id having count(*) > 1 order by Deviation desc limit 10;";
 
     // TOP 5 GENRES MOST LIKED
-    $sql_top5_genres_liked = "SELECT ArtistGenre.genre_id, count(*) as likes FROM LikesMusic, ArtistGenre WHERE ArtistGenre.artist_id = LikesMusic.artist_id GROUP BY ArtistGenre.genre_id ORDER BY likes DESC LIMIT 5;";
+    $sql_top5_genres_liked = "SELECT ArtistGenre.genre_name, ArtistGenre.genre_id, count(*) as likes FROM LikesMusic, ArtistGenre WHERE ArtistGenre.artist_id = LikesMusic.artist_id GROUP BY ArtistGenre.genre_id ORDER BY likes DESC LIMIT 5;";
 
     // TOP 10 KNOWN COUPLES THAT SHARE THE MOST NUMBER OF LIKED ARTISTS
     $sql_top10_known_shared_artists = "SELECT a1.id AS P1_id, a1.login AS P1_login, a2.id AS P2_id, a2.login AS P2_login, count(*) as CommonLikes FROM LikesMusic t1, LikesMusic t2, Knows, Person a1, Person a2 WHERE t1.artist_id = t2.artist_id and t1.person_id = Knows.person_id and t2.person_id = Knows.colleague_id and a1.id = t1.person_id and a2.id = t2.person_id GROUP BY Knows.person_id, Knows.colleague_id ORDER BY CommonLikes DESC limit 10;";
+
+    // POPULARITY ASCENDING
+    $pupular_asc = "SELECT count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes asc;";
 
     $result = mysql_query($pupular_asc,$con);
     $i = 0;
@@ -42,6 +42,34 @@
 
     $popularity_points = $popularity_points."]";
 
+
+    // NUMBER OF LIKES PER PERSON
+    $sql_likes_per_person = "SELECT count(*) as likes FROM Person, LikesMusic WHERE LikesMusic.person_id = Person.id GROUP BY  Person.id ORDER BY likes DESC;";
+
+    $result = mysql_query($pupular_asc,$con);
+    $i = 0;
+    $max = 0;
+    while($row = mysql_fetch_array($result)) {
+        if($i == 0) {
+            $max = $row['likes'];
+            for($j = 0; $j < $max; j++)
+                $people_likes_map[$j] = 0;
+        }
+            
+        $people_likes_map[$row['likes']] = $people_likes_map[$row['likes']] + 1;
+    }
+    
+    $people_vs_artists_points = "[";
+    for($j = 0; $j < $max; j++)
+        $people_vs_artists_points = $people_vs_artists_points."[".$j.",".$people_likes_map[$j]."]";
+    
+    $people_vs_artists_points = $people_vs_artists_points."]";
+    
+//    // NUMBER OF LIKES PER ARTIST
+//    $sql_likes_per_artist = "
+//    
+//    $artists_vs_likes_points
+
 ?>
 <html>
     <head>
@@ -52,45 +80,23 @@
 
 	$(function() {
 
-		var d1 = [];
-		for (var i = 0; i < 14; i += 0.5) {
-			d1.push([i, Math.sin(i)]);
-		}
+		var d1 = <?php echo $popularity_points ?>;
+        var d2 = <?php echo $people_vs_artists_points ?>;
+//        var d3 = <?php echo $artists_vs_likes_points ?>;
 
-		var d2 = <?php echo $popularity_points ?>;
-
-		var d3 = [];
-		for (var i = 0; i < 14; i += 0.5) {
-			d3.push([i, Math.cos(i)]);
-		}
-
-		var d4 = [];
-		for (var i = 0; i < 14; i += 0.1) {
-			d4.push([i, Math.sqrt(i * 10)]);
-		}
-
-		var d5 = [];
-		for (var i = 0; i < 14; i += 0.5) {
-			d5.push([i, Math.sqrt(i)]);
-		}
-
-		var d6 = [];
-		for (var i = 0; i < 14; i += 0.5 + Math.random()) {
-			d6.push([i, Math.sqrt(2*i + Math.sin(i) + 5)]);
-		}
 
 		$.plot("#artists_popularity", [{
-			data: d2,
+			data: d1,
 			lines: { show: true, fill: true }
 		}]);
         
         $.plot("#peopleVSartists", [{
-			data: d1,
+			data: d2,
 			lines: { show: true, fill: true }
 		}]);
         
         $.plot("#artistsVSlikes", [{
-			data: d1,
+			data: d2,
 			lines: { show: true, fill: true }
 		}]);
 	});
@@ -191,9 +197,9 @@
                     $result = mysql_query($sql_top5_genres_liked,$con);
                     while($row = mysql_fetch_array($result)) {
                         echo "<tr>";
-                        echo "<td>".$row['id']."</td>";
+                        echo "<td>".$row['genre_id']."</td>";
                         echo "<td>".$row['genre_name']."</td>";
-                        echo "<td>".$row['Likes']."</td>";
+                        echo "<td>".$row['likes']."</td>";
                         echo "</tr>";
                     }
                 ?>
