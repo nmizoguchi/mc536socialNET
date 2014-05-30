@@ -8,9 +8,9 @@
 
     $sql = "select avg(rating), stddev(rating) from LikesMusic";
     $result = mysql_query($sql,$con);
-    $rating_avg = mysql_fetch_array($result);
-    $rating_avg = $rating_avg['avg(rating)'];
-    $rating_stddev = mysql_fetch_array($result)['stddev(rating)'];
+    $row = mysql_fetch_array($result);
+    $rating_avg = $row['avg(rating)'];
+    $rating_stddev = $row['stddev(rating)'];
 
     $sql = "select LikesMusic.artist_id,MusicalArtist.artistic_name ,avg(LikesMusic.rating) from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by avg(LikesMusic.rating) desc limit 20"    ;
 
