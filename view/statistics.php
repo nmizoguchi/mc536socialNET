@@ -14,6 +14,7 @@
 
     // TOP 20 RATING MEDIO
     $sql_top20_avg_rating = "select LikesMusic.artist_id,MusicalArtist.artistic_name ,avg(LikesMusic.rating) from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by avg(LikesMusic.rating) desc limit 20";
+    $sql_top10_most_popular = "SELECT MusicalArtist.artistic_name, LikesMusic.artist_id, count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes desc limit 10;"
 ?>
 <html>
     <head>
@@ -34,6 +35,7 @@
           </tr>
         </table>
         
+        
         <h2>Top 20 Artistas com maior rating m&eacute;dio</h2>
         <table cellpadding="6">
             <tr>
@@ -41,17 +43,38 @@
                 <td>Nome</td>
                 <td>Rating m&eacute;dio</td>
             </tr>
-            <tr>
                 <?php
                     
                     $result = mysql_query($sql_top20_avg_rating,$con);
                     while($row = mysql_fetch_array($result)) {
+                        echo "<tr>";
                         echo "<td>".$row['artist_id']."</td>";
                         echo "<td>".$row['artistic_name']."</td>";
                         echo "<td>".$row['avg(LikesMusic.rating)']."</td>";
+                        echo "</tr>";
                     }
                 ?>
-          </tr>
+        </table>
+        
+
+        <h2>Top 20 Artistas com maior rating m&eacute;dio</h2>
+        <table cellpadding="6">
+            <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>N&uacute;mero de Likes</td>
+            </tr>
+                <?php
+                    
+                    $result = mysql_query($sql_top10_most_popular,$con);
+                    while($row = mysql_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<td>".$row['artist_id']."</td>";
+                        echo "<td>".$row['artistic_name']."</td>";
+                        echo "<td>".$row['likes']."</td>";
+                        echo "</tr>";
+                    }
+                ?>
         </table>
     </body>
 </html>
