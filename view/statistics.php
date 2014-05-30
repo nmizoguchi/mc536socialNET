@@ -152,9 +152,9 @@
         <h2>Top 20 Artistas com maior rating m&eacute;dio</h2>
         <table cellpadding="6">
             <tr>
-                <td>Id</td>
-                <td>Nome</td>
-                <td>Rating m&eacute;dio</td>
+                <td><b>Id</b></td>
+                <td><b>Nome</b></td>
+                <td><b>Rating m&eacute;dio</b></td>
             </tr>
                 <?php
                     
@@ -174,9 +174,9 @@
         <h2>Top 10 Artistas com maior rating m&eacute;dio</h2>
         <table cellpadding="6">
             <tr>
-                <td>Id</td>
-                <td>Nome</td>
-                <td>N&uacute;mero de Likes</td>
+                <td><b>Id</b></td>
+                <td><b>Nome</b></td>
+                <td><b>N&uacute;mero de Likes</b></td>
             </tr>
                 <?php
                     
@@ -196,9 +196,9 @@
         <h2>Top 10 Artistas com maior variabilidade de ratings</h2>
         <table cellpadding="6">
             <tr>
-                <td>Id</td>
-                <td>Nome</td>
-                <td>Desvio padr&atilde;o</td>
+                <td><b>Id</b></td>
+                <td><b>Nome</b></td>
+                <td><b>Desvio padr&atilde;o</b></td>
             </tr>
                 <?php
                     
@@ -218,9 +218,9 @@
         <h2>Top 5 G&ecirc;neros mais curtidos</h2>
         <table cellpadding="6">
             <tr>
-                <td>Id</td>
-                <td>Nome</td>
-                <td>Likes</td>
+                <td><b>Id</b></td>
+                <td><b>Nome</b></td>
+                <td><b>Likes</b></td>
             </tr>
                 <?php
                     
@@ -240,9 +240,9 @@
         <h2>Top 10 Conhecidos que compartilham o maior numero de artistas curtidos</h2>
         <table cellpadding="6">
             <tr>
-                <td>Id Pessoa 1</td>
-                <td>Id Pessoa 2</td>
-                <td>Likes comuns</td>
+                <td><b>Id Pessoa 1</b></td>
+                <td><b>Id Pessoa 2</b></td>
+                <td><b>Likes comuns</b></td>
             </tr>
                 <?php
                     
