@@ -80,7 +80,7 @@
 		}
 
 		$.plot("#artists_popularity", [{
-			data: d1,
+			data: d2,
 			lines: { show: true, fill: true }
 		}]);
         
