@@ -22,7 +22,7 @@
     $sql_top10_higher_stddev = "SELECT LikesMusic.artist_id, MusicalArtist.artistic_name, stddev(LikesMusic.rating) as Deviation from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id having count(*) > 1 order by Deviation desc limit 10;";
 
     // TOP 5 GENRES MOST LIKED
-    $sql_top5_genres_liked = "SELECT ArtistGenre.genre_name, ArtistGenre.genre_id, count(*) as likes FROM LikesMusic, ArtistGenre WHERE ArtistGenre.artist_id = LikesMusic.artist_id GROUP BY ArtistGenre.genre_id ORDER BY likes DESC LIMIT 5;";
+    $sql_top5_genres_liked = "SELECT ArtistGenre.genre_id, MusicalGenre.genre_name count(*) as likes FROM LikesMusic, ArtistGenre, MusicalGenre WHERE ArtistGenre.artist_id = LikesMusic.artist_id and MusicalGenre.id = ArtistGenre.genre_id GROUP BY ArtistGenre.genre_id ORDER BY likes DESC LIMIT 5;";
 
     // TOP 10 KNOWN COUPLES THAT SHARE THE MOST NUMBER OF LIKED ARTISTS
     $sql_top10_known_shared_artists = "SELECT a1.id AS P1_id, a1.login AS P1_login, a2.id AS P2_id, a2.login AS P2_login, count(*) as CommonLikes FROM LikesMusic t1, LikesMusic t2, Knows, Person a1, Person a2 WHERE t1.artist_id = t2.artist_id and t1.person_id = Knows.person_id and t2.person_id = Knows.colleague_id and a1.id = t1.person_id and a2.id = t2.person_id GROUP BY Knows.person_id, Knows.colleague_id ORDER BY CommonLikes DESC limit 10;";
