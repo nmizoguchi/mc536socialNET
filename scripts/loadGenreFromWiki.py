@@ -4,7 +4,7 @@ import requests
 import MySQLdb
 import re
 
-problems = list()
+problems = set()
 
 con = MySQLdb.connect(host='localhost', user='root', passwd='230163',db='mc536db07')
 
@@ -29,7 +29,7 @@ while(wiki_address):
 							problems.append(wiki_address[0])
 						else:
 							print "INSERT IGNORE INTO MusicalGenre (genre_name,wiki_address) VALUES (\""+genre_name+"\", \"http://en.wikipedia.org"+genre_address+"\");"
-							print "INSERT IGNORE INTO ArtistGenre (genre_id,artist_id) VALUES ((SELECT id FROM MusicalGenre WHERE wiki_address=\""+genre_address+"\"),(SELECT id FROM MusicalArtist WHERE wiki_address=\""+wiki_address[0]+"\"));"
+							print "INSERT IGNORE INTO ArtistGenre (genre_id,artist_id) VALUES ((SELECT id FROM MusicalGenre WHERE wiki_address=\"http://en.wikipedia.org"+genre_address+"\"),(SELECT id FROM MusicalArtist WHERE wiki_address=\""+wiki_address[0]+"\"));"
 
 		#print "UPDATE MusicalArtist SET artistic_name=\""+title[0]+"\", creation_date=\""+active+"\" WHERE wiki_address=\""+wiki_address[0]+"\";"
 
