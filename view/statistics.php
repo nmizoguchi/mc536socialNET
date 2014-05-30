@@ -56,7 +56,7 @@
                 $people_likes_map[$j] = 0;
         }
             
-        $people_likes_map[$row['likes']] = $people_likes_map[$row['likes']] + 1;
+        $people_likes_map[intval($row['likes'])] = $people_likes_map[intval($row['likes'])] + 1;
     }
     
     $people_vs_artists_points = "[";
