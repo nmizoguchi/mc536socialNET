@@ -63,9 +63,11 @@
     }
     
     $people_vs_artists_points = "[";
-    for($j = 0; $j <= $max; $j++)
+    for($j = 0; $j <= $max; $j++) {
+        if($j != 0)
+            $people_vs_artists_points = $people_vs_artists_points.",";
         $people_vs_artists_points = $people_vs_artists_points."[".$j.",".$people_likes_map[$j]."]";
-    
+    }
     $people_vs_artists_points = $people_vs_artists_points."]";
     
     
@@ -89,9 +91,11 @@
     }
     
     $artists_vs_likes_points = "[";
-    for($j = 0; $j <= $max; $j++)
+    for($j = 0; $j <= $max; $j++) {
+        if($j != 0)
+            $artists_vs_likes_points = $artists_vs_likes_points.",";
         $artists_vs_likes_points = $artists_vs_likes_points."[".$j.",".$artists_likes_map[$j]."]";
-    
+    }
     $artists_vs_likes_points = $artists_vs_likes_points."]";
 
 ?>
