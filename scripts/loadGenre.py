@@ -32,5 +32,5 @@ for row in qres:
 	qres = g2.query(queryGenre)
 	
 	for row2 in qres:
-		print "INSERT INTO MusicalGenre (genre_name) VALUES (\""+str(row2[0])+"\");"
-		print "INSERT INTO ArtistGenre (genre_id,artist_id) VALUES ((SELECT id FROM MusicalGenre WHERE genre_name=\""+str(row2[0])+"\"),(SELECT id FROM MusicalArtist WHERE wiki_address=\""+getWikiAddress(str(row[0]))+"\");"
+		print "INSERT IGNORE INTO MusicalGenre (genre_name) VALUES (\""+str(row2[0].encode('utf-8'))+"\");"
+		print "INSERT IGNORE INTO ArtistGenre (genre_id,artist_id) VALUES ((SELECT id FROM MusicalGenre WHERE genre_name=\""+str(row2[0].encode('utf-8'))+"\"),(SELECT id FROM MusicalArtist WHERE wiki_address=\""+getWikiAddress(str(row[0]).encode('utf-8'))+"\"));"

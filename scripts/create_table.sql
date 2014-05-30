@@ -21,6 +21,8 @@ CREATE TABLE Blocks (
 id INT NOT NULL AUTO_INCREMENT,
 blocker_id INT NOT NULL,
 blocked_id INT NOT NULL,
+block_reason INT NOT NULL,
+block_reason_other VARCHAR(200),
 PRIMARY KEY(id),
 FOREIGN KEY (blocker_id) REFERENCES Person(id) ON DELETE CASCADE,
 FOREIGN KEY (blocked_id) REFERENCES Person(id) ON DELETE CASCADE
@@ -49,7 +51,6 @@ PRIMARY KEY(id)
 CREATE TABLE MusicalArtist (
 id INT NOT NULL AUTO_INCREMENT,
 artistic_name VARCHAR(40),
-genre_id VARCHAR(40),
 city_id INT,
 creation_date DATE,
 wiki_address VARCHAR(200),
@@ -96,6 +97,7 @@ CREATE TABLE LikesMusic (
 id INT NOT NULL AUTO_INCREMENT,
 person_id INT NOT NULL,
 artist_id INT NOT NULL,
+rating INT,
 PRIMARY KEY(id),
 FOREIGN KEY (person_id) REFERENCES Person(id) ON DELETE CASCADE,
 FOREIGN KEY (artist_id) REFERENCES MusicalArtist(id) ON DELETE CASCADE
