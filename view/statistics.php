@@ -46,7 +46,7 @@
     // NUMBER OF LIKES PER PERSON
     $sql_likes_per_person = "SELECT count(*) as likes FROM Person, LikesMusic WHERE LikesMusic.person_id = Person.id GROUP BY  Person.id ORDER BY likes DESC;";
 
-    $result = mysql_query($pupular_asc,$con);
+    $result = mysql_query($sql_likes_per_person,$con);
     $i = 0;
     $max = 0;
     $people_likes_map = array();
@@ -58,7 +58,7 @@
                 $people_likes_map[$j] = 0;
         }
             
-        $people_likes_map[intval($row['likes'])] = $people_likes_map[intval($row['likes'])] + 1;
+        $people_likes_map[intval($row['likes'])]++;
     }
     
     $people_vs_artists_points = "[";
