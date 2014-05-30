@@ -52,7 +52,7 @@
     while($row = mysql_fetch_array($result)) {
         if($i == 0) {
             $max = $row['likes'];
-            for($j = 0; $j < $max; j++)
+            for($j = 0; $j < $max; $j++)
                 $people_likes_map[$j] = 0;
         }
             
