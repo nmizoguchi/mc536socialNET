@@ -201,28 +201,6 @@
         
         
         <hr>
-        <h2>Top 5 G&ecirc;neros mais curtidos</h2>
-        <table cellpadding="6">
-            <tr>
-                <td>Id</td>
-                <td>Nome</td>
-                <td>Likes</td>
-            </tr>
-                <?php
-                    
-                    $result = mysql_query($sql_top5_genres_liked,$con);
-                    while($row = mysql_fetch_array($result)) {
-                        echo "<tr>";
-                        echo "<td>".$row['id']."</td>";
-                        echo "<td>".$row['genre_name']."</td>";
-                        echo "<td>".$row['likes']."</td>";
-                        echo "</tr>";
-                    }
-                ?>
-        </table>
-        
-        
-        <hr>
         <h2>Top 10 Conhecidos que compartilham o maior numero de artistas curtidos</h2>
         <table cellpadding="6">
             <tr>
