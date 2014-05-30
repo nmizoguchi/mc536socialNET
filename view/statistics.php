@@ -18,6 +18,9 @@
     // TOP 10 MOST POPULAR
     $sql_top10_most_popular = "SELECT MusicalArtist.artistic_name, LikesMusic.artist_id, count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes desc limit 10;";
 
+// POPULARITY ASCENDING
+    $pupular_asc = "SELECT count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes asc;";
+
     // TOP 10 WITH HIGHER STDDEV
     $sql_top10_higher_stddev = "SELECT LikesMusic.artist_id, MusicalArtist.artistic_name, stddev(LikesMusic.rating) as Deviation from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id having count(*) > 1 order by Deviation desc limit 10;";
 
@@ -25,7 +28,19 @@
     $sql_top5_genres_liked = "SELECT ArtistGenre.genre_id, count(*) as likes FROM LikesMusic, ArtistGenre WHERE ArtistGenre.artist_id = LikesMusic.artist_id GROUP BY ArtistGenre.genre_id ORDER BY likes DESC LIMIT 5;";
 
     // TOP 10 KNOWN COUPLES THAT SHARE THE MOST NUMBER OF LIKED ARTISTS
-    $sql_top10_known_shared_artists = "SELECT Knows.person_id, Knows.colleague_id, count(*) as CommonLikes FROM LikesMusic t1, LikesMusic t2, Knows WHERE t1.artist_id = t2.artist_id and t1.person_id = Knows.person_id and t2.person_id = Knows.colleague_id group by Knows.person_id, Knows.colleague_id order by CommonLikes DESC LIMIT 10;";
+    $sql_top10_known_shared_artists = "SELECT a1.id AS P1_id, a1.login AS P1_login, a2.id AS P2_id, a2.login AS P2_login, count(*) as CommonLikes FROM LikesMusic t1, LikesMusic t2, Knows, Person a1, Person a2 WHERE t1.artist_id = t2.artist_id and t1.person_id = Knows.person_id and t2.person_id = Knows.colleague_id and a1.id = t1.person_id and a2.id = t2.person_id GROUP BY Knows.person_id, Knows.colleague_id ORDER BY CommonLikes DESC limit 10;";
+
+    $result = mysql_query($pupular_asc,$con);
+    $i = 0;
+    $popularity_points = "[";
+    while($row = mysql_fetch_array($result)) {
+        if($i != 0)
+            $popularity_points = $popularity_points.",";
+        $popularity_points = $popularity_points."[".$i.",".$row['likes']."]";
+        $i++;
+    }
+
+    $popularity_points = $popularity_points."]";
 
 ?>
 <html>
@@ -42,7 +57,7 @@
 			d1.push([i, Math.sin(i)]);
 		}
 
-		var d2 = [[0, 3], [4, 8], [8, 5], [9, 13]];
+		var d2 = <?php echo $popularity_points ?>;
 
 		var d3 = [];
 		for (var i = 0; i < 14; i += 0.5) {
@@ -64,7 +79,17 @@
 			d6.push([i, Math.sqrt(2*i + Math.sin(i) + 5)]);
 		}
 
-		$.plot("#chart", [{
+		$.plot("#artists_popularity", [{
+			data: d1,
+			lines: { show: true, fill: true }
+		}]);
+        
+        $.plot("#peopleVSartists", [{
+			data: d1,
+			lines: { show: true, fill: true }
+		}]);
+        
+        $.plot("#artistsVSlikes", [{
 			data: d1,
 			lines: { show: true, fill: true }
 		}]);
@@ -108,7 +133,8 @@
                 ?>
         </table>
         
-
+        
+        <hr>
         <h2>Top 10 Artistas com maior rating m&eacute;dio</h2>
         <table cellpadding="6">
             <tr>
@@ -130,6 +156,7 @@
         </table>
         
         
+        <hr>
         <h2>Top 10 Artistas com maior variabilidade de ratings</h2>
         <table cellpadding="6">
             <tr>
@@ -151,6 +178,7 @@
         </table>
         
         
+        <hr>
         <h2>Top 5 G&ecirc;neros mais curtidos</h2>
         <table cellpadding="6">
             <tr>
@@ -171,6 +199,8 @@
                 ?>
         </table>
         
+        
+        <hr>
         <h2>Top 5 G&ecirc;neros mais curtidos</h2>
         <table cellpadding="6">
             <tr>
@@ -192,6 +222,7 @@
         </table>
         
         
+        <hr>
         <h2>Top 10 Conhecidos que compartilham o maior numero de artistas curtidos</h2>
         <table cellpadding="6">
             <tr>
@@ -204,8 +235,8 @@
                     $result = mysql_query($sql_top10_known_shared_artists,$con);
                     while($row = mysql_fetch_array($result)) {
                         echo "<tr>";
-                        echo "<td>".$row['person_id']."</td>";
-                        echo "<td>".$row['colleague_id']."</td>";
+                        echo "<td>".$row['P1_login']."</td>";
+                        echo "<td>".$row['P2_login']."</td>";
                         echo "<td>".$row['CommonLikes']."</td>";
                         echo "</tr>";
                     }
@@ -213,7 +244,19 @@
         </table>
         
         
-        <div id="chart" style="height:300px; width:400px"></div>
+        <hr>
+        <h2>Popularidade de Artistas</h2>
+        <div id="artists_popularity" style="height:300px; width:400px"></div>
+        
+        
+        <hr>
+        <h2>N&uacute;mero de Pessoas que curtiram X artistas</h2>
+        <div id="peopleVSartists" style="height:300px; width:400px"></div>
+        
+        
+        <hr>
+        <h2>N&uacute;mero de Artistas curtidos por exatamente X pessoas</h2>
+        <div id="artistsVSlikes" style="height:300px; width:400px"></div>
         
     </body>
 </html>
