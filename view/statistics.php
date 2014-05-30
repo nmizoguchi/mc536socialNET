@@ -120,12 +120,12 @@
         
         $.plot("#peopleVSartists", [{
 			data: d2,
-			lines: { show: true, fill: true }
+			bars: { show: true, fill: true }
 		}]);
         
         $.plot("#artistsVSlikes", [{
 			data: d3,
-			lines: { show: true, fill: true }
+			bars: { show: true, fill: true }
 		}]);
 	});
 
