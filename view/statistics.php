@@ -43,6 +43,7 @@
     $popularity_points = $popularity_points."]";
 
 
+    
     // NUMBER OF LIKES PER PERSON
     $sql_likes_per_person = "SELECT count(*) as likes FROM Person, LikesMusic WHERE LikesMusic.person_id = Person.id GROUP BY  Person.id ORDER BY likes DESC;";
 
@@ -65,12 +66,33 @@
     for($j = 0; $j <= $max; $j++)
         $people_vs_artists_points = $people_vs_artists_points."[".$j.",".$people_likes_map[$j]."]";
     
-//    $people_vs_artists_points = $people_vs_artists_points."]";
+    $people_vs_artists_points = $people_vs_artists_points."]";
     
-//    // NUMBER OF LIKES PER ARTIST
-//    $sql_likes_per_artist = "
-//    
-//    $artists_vs_likes_points
+    
+
+    // NUMBER OF LIKES PER ARTIST
+    $sql_likes_per_artist = "SELECT count(*) as likes FROM MusicalArtist, LikesMusic WHERE LikesMusic.artist_id = MusicalArtist.id GROUP BY MusicalArtist.id ORDER BY likes DESC;";
+    
+    $result = mysql_query($sql_likes_per_artist,$con);
+    $i = 0;
+    $max = 0;
+    $artists_likes_map = array();
+    
+    while($row = mysql_fetch_array($result)) {
+        if($i == 0) {
+            $max = intval($row['likes']);
+            for($j = 0; $j <= $max; $j++)
+                $artists_likes_map[$j] = 0;
+        }
+            
+        $artists_likes_map[intval($row['likes'])]++;
+    }
+    
+    $artists_vs_likes_points = "[";
+    for($j = 0; $j <= $max; $j++)
+        $artists_vs_likes_points = $artists_vs_likes_points."[".$j.",".$artists_likes_map[$j]."]";
+    
+    $artists_vs_likes_points = $artists_vs_likes_points."]";
 
 ?>
 <html>
@@ -84,7 +106,7 @@
 
 		var d1 = <?php echo $popularity_points ?>;
         var d2 = <?php echo $people_vs_artists_points ?>;
-//        var d3 = <?php echo $artists_vs_likes_points ?>;
+        var d3 = <?php echo $artists_vs_likes_points ?>;
 
 
 		$.plot("#artists_popularity", [{
@@ -98,7 +120,7 @@
 		}]);
         
         $.plot("#artistsVSlikes", [{
-			data: d1,
+			data: d3,
 			lines: { show: true, fill: true }
 		}]);
 	});
