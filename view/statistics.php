@@ -60,6 +60,7 @@
         }
             
         $people_likes_map[intval($row['likes'])]++;
+        $i++;
     }
     
     $people_vs_artists_points = "[";
@@ -88,6 +89,7 @@
         }
             
         $artists_likes_map[intval($row['likes'])]++;
+        $i++;
     }
     
     $artists_vs_likes_points = "[";
