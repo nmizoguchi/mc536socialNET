@@ -195,25 +195,25 @@
         <h2>Top 10 Conhecidos que compartilham o maior numero de artistas curtidos</h2>
         <table cellpadding="6">
             <tr>
-                <td>Pessoa 1</td>
-                <td>Pessoa 2</td>
+                <td>Id Pessoa 1</td>
+                <td>Id Pessoa 2</td>
                 <td>Likes comuns</td>
             </tr>
                 <?php
                     
-                    $result = mysql_query($sql_top5_genres_liked,$con);
+                    $result = mysql_query($sql_top10_known_shared_artists,$con);
                     while($row = mysql_fetch_array($result)) {
                         echo "<tr>";
-                        echo "<td>".$row['id']."</td>";
-                        echo "<td>".$row['genre_name']."</td>";
-                        echo "<td>".$row['likes']."</td>";
+                        echo "<td>".$row['person_id']."</td>";
+                        echo "<td>".$row['colleague_id']."</td>";
+                        echo "<td>".$row['CommonLikes']."</td>";
                         echo "</tr>";
                     }
                 ?>
         </table>
         
         
-        <div id="chart" style="height:150px; width:100%"></div>
+        <div id="chart" style="height:300px; width:400px"></div>
         
     </body>
 </html>
