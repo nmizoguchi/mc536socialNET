@@ -14,7 +14,12 @@
 
     // TOP 20 RATING MEDIO
     $sql_top20_avg_rating = "select LikesMusic.artist_id,MusicalArtist.artistic_name ,avg(LikesMusic.rating) from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by avg(LikesMusic.rating) desc limit 20";
-    $sql_top10_most_popular = "SELECT MusicalArtist.artistic_name, LikesMusic.artist_id, count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes desc limit 10;"
+
+    // TOP 10 MOST POPULAR
+    $sql_top10_most_popular = "SELECT MusicalArtist.artistic_name, LikesMusic.artist_id, count(*) AS likes from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id order by likes desc limit 10;";
+
+    // TOP 10 WITH HIGHER STDDEV
+    $sql_top10_higher_stddev = "SELECT LikesMusic.artist_id, MusicalArtist.artistic_name, stddev(LikesMusic.rating) as Deviation from LikesMusic, MusicalArtist where LikesMusic.artist_id = MusicalArtist.id group by MusicalArtist.id having count(*) > 1 order by Deviation desc limit 10;";
 ?>
 <html>
     <head>
@@ -57,7 +62,7 @@
         </table>
         
 
-        <h2>Top 20 Artistas com maior rating m&eacute;dio</h2>
+        <h2>Top 10 Artistas com maior rating m&eacute;dio</h2>
         <table cellpadding="6">
             <tr>
                 <td>Id</td>
@@ -72,6 +77,27 @@
                         echo "<td>".$row['artist_id']."</td>";
                         echo "<td>".$row['artistic_name']."</td>";
                         echo "<td>".$row['likes']."</td>";
+                        echo "</tr>";
+                    }
+                ?>
+        </table>
+        
+        
+        <h2>Top 10 Artistas com maior variabilidade de ratings</h2>
+        <table cellpadding="6">
+            <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>Desvio padr&atilde;o</td>
+            </tr>
+                <?php
+                    
+                    $result = mysql_query($sql_top10_higher_stddev,$con);
+                    while($row = mysql_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<td>".$row['artist_id']."</td>";
+                        echo "<td>".$row['artistic_name']."</td>";
+                        echo "<td>".$row['Deviation']."</td>";
                         echo "</tr>";
                     }
                 ?>

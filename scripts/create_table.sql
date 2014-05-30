@@ -62,7 +62,8 @@ PRIMARY KEY(id)
 CREATE TABLE MusicalGenre (
 id INT NOT NULL AUTO_INCREMENT,
 genre_name VARCHAR(40) NOT NULL,
-UNIQUE(genre_name),
+wiki_address VARCHAR(200),
+UNIQUE(wiki_address),
 PRIMARY KEY(id)
 );
 
