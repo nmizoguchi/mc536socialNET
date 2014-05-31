@@ -9,14 +9,19 @@
    $sql = "SELECT * FROM Person";
    $result = mysql_query($sql,$con);
 ?>
-		<h1>Editar Usu&aacute;rio</h1>
+<html>
+	<head>
+		<title> MC536 SocialNET - Listagem de Artistas</title>
+	</head>
+	<body>
+		<h1>Listagem de Artistas</h1>
 		<table cellpadding="6">
 		  <tr>
 		    <td>Id</td>
-		    <td>Login</td>
 		    <td>Name</td>
-		    <td>Hometown</td>
-		    <td>Op&ccedil;&otilde;es</td>
+		    <td>City</td>
+		    <td>Creation Date</td>
+		    <td>Wiki Address</td>
 		  </tr>
 		<?php
 			
@@ -33,3 +38,6 @@
 				echo "</tr>";
 			}
 		?>
+		</table>
+	</body>
+</html>

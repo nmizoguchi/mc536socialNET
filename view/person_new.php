@@ -79,11 +79,6 @@
 		}
 	}
 ?>
-<html>
-	<head>
-		<title> MC536 SocialNET - Inserir novo usuario</title>
-	</head>
-	<body>
 		<h1>Inserir Usu&aacute;rio</h1>
 		<form name="input" action="person_new.php" method="post">
 		<table cellpadding="6">
@@ -121,5 +116,3 @@
 		</table>
 		<input type="submit" value="Enviar">
 		</form>
-	</body>
-</html>
