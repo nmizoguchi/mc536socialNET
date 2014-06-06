@@ -77,6 +77,20 @@
             	if(isset($_SESSION['login']))
             		echo "<li><a href='?page=home&logout=true'>Logout</a></li>";
             ?>
+            <?php
+            	if(isset($_SESSION['login']))
+            		echo "
+            		<li>
+            		<form class='form-horizontal' name='person_new' action='?page=artist_search' method='post' role='form'>
+            		<div class='input-group'>
+						<input type='text' class='form-control' name='search'>
+						<span class='input-group-btn'>
+						<button class='btn btn-default' type='submit'>Go!</button>
+						</span>
+					</div><!-- /input-group -->
+					</form>
+            		</li>";
+            ?>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

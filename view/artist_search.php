@@ -8,6 +8,7 @@
 	}
 	
 	$login = $_SESSION['login'];
+	$search = $_POST['search'];
 	
 	$con = mysql_connect("localhost:3306","mc536user07", "euzaraef") or die(mysql_error());
 	$selected = mysql_select_db("mc536db07", $con);
@@ -17,21 +18,20 @@
 	
 	<div class="col-md-12">
 		<br>
-		<p class="lead"><h2>Personal Ratings</h2></p>
+		<p class="lead"><h2>Results</h2></p>
 		<p class="lead">
 			<div class="row">
 				<?php
-					$sql = "SELECT * FROM MusicalArtist, LikesMusic WHERE MusicalArtist.id = LikesMusic.artist_id and LikesMusic.person_id=(SELECT id FROM Person WHERE login='$login') ORDER BY LikesMusic.rating DESC";
+					$sql = "Select * FROM MusicalArtist WHERE artistic_name like '%$search%'";
 					$result = mysql_query($sql,$con);
 					while($row = mysql_fetch_array($result)) {
 						$title = $row['artistic_name'];
 						$image = $row['image_mega'];
 						if($image == "") $image = "http://images3.alphacoders.com/739/73967.jpg";
-						$artist_id = $row['artist_id'];
-						$rating = $row['rating'];
+						$artist_id = $row['id'];
 						echo
 							"<div class='col-md-2 col-sm-4 artist_cell' style=\"margin:1px; background-image:url('".$image."');\">".
-							"<a href='./?page=artist_info&id=".$artist_id."' class='artist_title overflow-ellipsis'>".$title." (".$rating.")</a>".
+							"<a href='./?page=artist_info&id=".$artist_id."' class='artist_title overflow-ellipsis'>".$title."</a>".
 							"</div>";
 					}
 				?>
