@@ -27,6 +27,7 @@
 ?>
 
 <div class="row">
+
 	
 	<div class="col-md-9">
 		<br>
@@ -34,17 +35,26 @@
 		<p class="lead">
 			<div class="row">
 				<?php
-					$sql = "SELECT * FROM MusicalArtist LIMIT 12";
-					$result = mysql_query($sql,$con);
-					while($row = mysql_fetch_array($result)) {
-						$title = $row['artistic_name'];
-						$image = $row['image_mega'];
-						if($image == "") $image = "http://images3.alphacoders.com/739/73967.jpg";
-						$artist_id = $row['id'];
-						echo
-							"<div class='col-md-2 col-sm-4 artist_cell' style=\"margin:1px; background-image:url('".$image."');\">".
-							"<a href='./?page=artist_info&id=".$artist_id."' class='artist_title overflow-ellipsis'>".$title."</a>".
-							"</div>";
+					$user_id = mysql_query("SELECT id FROM person WHERE login = '$login'", $con);
+					$find_all_genres_sql = "SELECT ArtistGenre.genre_id FROM LikesMusic, ArtistGenre WHERE LikesMusic.person_id = '$user_id' and 
+											LikesMusic.artist_id = ArtistGenre.artist_id GROUP BY ArtistGenre.genre_id";
+					$result_all_genres = mysql_query($find_all_genres_sql, $con);
+				
+					while($genre_id = mysql_fetch_array($result_all_genres)) {
+						$most_liked_from_each_genre = "SELECT MusicalArtist.artistic_name, MusicalArtist.image_mega FROM LikesMusic, ArtistGenre, MusicalArtist
+						 							   WHERE ArtistGenre.genre_id = 3 AND LikesMusic.artist_id = ArtistGenre.artist_id AND 
+						 							   LikesMusic.artist_id = MusicalArtist.id GROUP BY LikesMusic.artist_id ORDER BY count(*) desc limit 5";
+						$result_each_genre = mysql_query($most_liked_from_each_genre);
+						while($row = mysql_fetch_array($result_each_genre)) {
+							$title = $row['artistic_name'];
+							$image = $row['image_mega'];
+							if($image == "") $image = "http://images3.alphacoders.com/739/73967.jpg";
+							$artist_id = $row['id'];
+							echo
+								"<div class='col-md-2 col-sm-4 artist_cell' style=\"margin:1px; background-image:url('".$image."');\">".
+								"<a href='./?page=artist_info&id=".$artist_id."' class='artist_title overflow-ellipsis'>".$title."</a>".
+								"</div>";
+							}
 					}
 				?>
 			</div>
