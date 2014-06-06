@@ -3,6 +3,14 @@ body {
 }
 .starter-template {
   padding: 40px 15px;
-  text-align: center;
 }
 
+.overflow-ellipsis {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.thumbnail {
+	height:150px;
+}

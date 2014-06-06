@@ -10,6 +10,9 @@ Acessar http://sql2.lab.ic.unicamp.br/~ra103659/mc536/mc536socialNET/view/, tere
 * Listar usuários
 	Aqui você pode ver quais os usuários estão cadastrados e seus dados, e também pode editar as informações de qualquer usuário caso deseje.
 	Também é possível remover qualquer usuário, bastando clicar na opção "remover" que fica à esquerda da tela.
+	
+* Estatísticas
+	Análise estatística do banco de dados. Informações como média e desvio padrão do ranking, entre outras informações.
 
 INSTRUÇÕES PARA INSERIR DADOS PRÉ PROCESSADOS:
 
@@ -22,6 +25,7 @@ Inserir os arquivos .sql localizados na pasta Scripts em seu banco de dados MySQ
 			// loadCitiesAndCountries.py e loadGenre.py
 - artistsNoDuplicates.sql // Contém os dados do banco para usar os artistas sem duplicatas
 - updateDuplicatedReferences.sql // Atualiza as referências dos artistas que estavam duplicados
+- insertGenreFromWiki.sql // Insere os generos nao obtidos atraves da dbpedia.
 
 INFORMAÇÕES SOBRE OS SCRIPTS DE EXTRAÇÃO DE DADOS:
 
@@ -48,3 +52,7 @@ Vale lembrar que a busca das informações no grafo foi obtida através de queri
 * loadGenre.py
 	Carrega o grafo obtido pelo script acima, e faz pesquisas utilizando SPARQL, criando as queries
 	para inserir os generos, assim como marcando os generos de cada artista.
+
+* loadGenreFromWiki.py e loadNamesFromWiki.py
+	Pega informaçoes utilizando um script escrito em python, que utiliza XPath para extrair informacoes
+	da Wikipedia. Pega informacoes faltantes que nao foram carregadas atraves da DBPedia
