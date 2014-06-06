@@ -36,7 +36,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>MusicNET</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -71,8 +71,8 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="?page=home">Home</a></li>
-            <li><a href="#about">Sobre</a></li>
-            <li><a href="#contact">Contato</a></li>
+            <li><a href="?page=user_friends">Friends</a></li>
+            <li><a href="?page=user_rated">My Ratings</a></li>
             <?php
             	if(isset($_SESSION['login']))
             		echo "<li><a href='?page=home&logout=true'>Logout</a></li>";

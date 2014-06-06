@@ -14,3 +14,12 @@ body {
 .thumbnail {
 	height:150px;
 }
+
+.artist_cell {
+	background-repeat: no-repeat;
+	background-size:   cover; 
+}
+
+.artist_title {
+	background-color: white;
+}
