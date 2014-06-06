@@ -54,6 +54,8 @@ artistic_name VARCHAR(40),
 city_id INT,
 creation_date DATE,
 wiki_address VARCHAR(200),
+image_small VARCHAR(500),
+image_medium VARCHAR(500),
 FOREIGN KEY (city_id) REFERENCES City(id) ON DELETE CASCADE,
 UNIQUE(wiki_address),
 PRIMARY KEY(id)
