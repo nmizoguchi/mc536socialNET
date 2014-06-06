@@ -91,11 +91,6 @@
    $name = $row['name'];
    $hometown = $row['hometown'];
 ?>
-<html>
-	<head>
-		<title> MC536 SocialNET - Listagem de usuarios</title>
-	</head>
-	<body>
 		<?php if($err)
 			echo $err
 		?>
@@ -140,5 +135,3 @@
 		</table>
 		<input type="submit" value="Enviar">
 		</form>
-	</body>
-</html>
